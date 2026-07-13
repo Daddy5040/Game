@@ -1,0 +1,15 @@
+services:
+  stickman-office-party:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DB_PATH: /app/data/stickman-office-party.db
+      NODE_ENV: production
+    volumes:
+      - stickman-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  stickman-data:

@@ -1,0 +1,6 @@
+{
+  "name": "Stickman Office Party",
+  "description": "Multiplayer browser party game for office teams with real-time mini-games like Tank Battle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

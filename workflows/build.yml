@@ -1,0 +1,53 @@
+name: Build
+
+on:
+push:
+pull_request:
+workflow_dispatch:
+
+permissions:
+contents: read
+
+concurrency:
+group: build-${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true
+
+jobs:
+build:
+name: Build, typecheck and smoke test
+runs-on: ubuntu-latest
+timeout-minutes: 15
+
+steps:
+- name: Récupérer le projet
+uses: actions/checkout@v7
+
+- name: Installer Node.js
+uses: actions/setup-node@v6
+with:
+node-version: 22.x
+cache: npm
+cache-dependency-path: package-lock.json
+
+- name: Installer les dépendances
+run: npm ci
+
+- name: Vérifier TypeScript
+run: npm run typecheck
+
+- name: Compiler le projet
+run: npm run build
+
+- name: Tester le multijoueur
+run: npm run test:smoke
+
+- name: Publier les fichiers compilés
+uses: actions/upload-artifact@v7
+with:
+name: stickman-office-party-build-${{ github.sha }}
+path: |
+apps/web/dist
+apps/server/dist
+packages/shared/dist
+if-no-files-found: error
+retention-days: 14

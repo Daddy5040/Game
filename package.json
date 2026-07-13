@@ -1,0 +1,23 @@
+{
+  "name": "stickman-office-party",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @stickman/shared && npm run build -w @stickman/web && npm run start -w @stickman/server",
+    "build": "npm run build -w @stickman/shared && npm run build -w @stickman/web && npm run build -w @stickman/server",
+    "typecheck": "npm run build -w @stickman/shared && npm run typecheck -w @stickman/web && npm run typecheck -w @stickman/server",
+    "start": "npm run build -w @stickman/shared && npm run build -w @stickman/web && npm run start -w @stickman/server",
+    "test:smoke": "npm run build && node scripts/smoke-test.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=22.5"
+  }
+}
